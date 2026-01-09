@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/db";
 import { normalizeMyanmarText } from "@/lib/text/normalize";
-import fuzzball from "fuzzball";
+import * as fuzzball from "fuzzball";
 
 export function makeDedupeKey(title: string): string {
   return normalizeMyanmarText(title).toLowerCase();
@@ -23,7 +23,7 @@ export async function assignClusterForHeadline(headlineId: string, dedupeKey: st
   let best: { clusterId: string; score: number } | null = null;
   for (const c of candidates) {
     if (!c.clusterId) continue;
-    const s = ratio(dedupeKey, c.dedupeKey);
+    const s = fuzzball.ratio(dedupeKey, c.dedupeKey);
     if (s >= 92) {
       if (!best || s > best.score) best = { clusterId: c.clusterId, score: s };
     }
