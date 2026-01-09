@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  @apply bg-white text-neutral-900;
+}
+
+a { @apply underline underline-offset-2; }
+
+.container-max { @apply mx-auto max-w-3xl px-4; }
+
+.chip { @apply inline-flex items-center rounded-full border border-neutral-300 px-3 py-1 text-sm hover:bg-neutral-50; }
+.chip-active { @apply bg-neutral-900 text-white border-neutral-900 hover:bg-neutral-900; }
+.badge { @apply inline-flex items-center rounded-md border border-neutral-300 px-2 py-0.5 text-xs text-neutral-700; }
+.btn { @apply inline-flex items-center justify-center rounded-md border border-neutral-300 px-3 py-2 text-sm hover:bg-neutral-50; }
+.btn-primary { @apply bg-neutral-900 text-white border-neutral-900 hover:bg-neutral-900; }
+.select { @apply rounded-md border border-neutral-300 px-3 py-2 text-sm bg-white; }
+.toggle { @apply inline-flex items-center gap-2 text-sm; }
+
+.marquee {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-track {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee var(--marquee-duration, 75s) linear infinite;
+  will-change: transform;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}

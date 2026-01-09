@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Category {
+  POLITICS_CONFLICT
+  ECONOMY_BUSINESS
+  SOCIETY
+  HEALTH
+  EDUCATION
+  ENVIRONMENT
+  INTERNATIONAL
+  CRIME_COURTS
+  TECH
+  CULTURE
+  OTHER
+}
+
+model Source {
+  id            String   @id @default(cuid())
+  name          String   @unique
+  url           String
+  isActive      Boolean  @default(true)
+  lastFetchedAt DateTime?
+  lastError     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  headlines     Headline[]
+}
+
+model Headline {
+  id            String   @id
+  sourceName    String
+  sourceUrl     String
+  articleUrl    String   @unique
+  originalTitle String
+  neutralTitle  String?
+  publishedAt   DateTime?
+  fetchedAt     DateTime @default(now())
+  category      Category @default(OTHER)
+  dedupeKey     String
+  clusterId     String?
+  language      String   @default("my")
+  rewriteMode   String   @default("rules")
+  rewriteFlags  Json     @default("[]")
+  isActive      Boolean  @default(true)
+
+  source        Source   @relation(fields: [sourceName], references: [name], onDelete: Restrict, onUpdate: Cascade)
+
+  @@index([fetchedAt])
+  @@index([publishedAt])
+  @@index([category])
+  @@index([clusterId])
+  @@index([sourceName])
+  @@index([dedupeKey])
+}
