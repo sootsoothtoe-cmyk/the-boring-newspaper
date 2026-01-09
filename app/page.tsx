@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import Ticker from "@/components/Ticker";
 import HeadlineList from "@/components/HeadlineList";
 
