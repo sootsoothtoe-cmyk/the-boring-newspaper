@@ -55,6 +55,12 @@ export async function ingestAll(): Promise<IngestStats> {
         const rewriteMode = rewrite.rewriteMode || "rules";
         const rewriteFlags = rewrite.rewriteFlags || [];
 
+        if (process.env.DEBUG_REWRITE === "1") {
+          const changed = neutralTitle.trim() !== item.originalTitle.trim();
+          // eslint-disable-next-line no-console
+          console.log(`[rewrite] ${src.name} changed=${changed} flags=${rewriteFlags.join(",") || "-"}\n  orig: ${item.originalTitle}\n  neut: ${neutralTitle}`);
+        }
+
         const category = categorizeMyanmarTitle(neutralTitle);
         const dedupeKey = makeDedupeKey(neutralTitle);
 

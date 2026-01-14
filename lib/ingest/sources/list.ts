@@ -12,4 +12,13 @@ export const SOURCES: SourceConfig[] = [
   { name: "BBC Burmese", url: "https://www.bbc.com/burmese" },
   { name: "The Irrawaddy (Burmese)", url: "https://burma.irrawaddy.com/" },
   { name: "YKT News", url: "https://yktnews.com/" },
+  { name: "Karen News", url: "https://karennews.org/" },
+  { name: "Kachin News", url: "https://kachinnews.com/" },
+  { name: "KT News", url: "https://ktnews.org/" },
+  { name: "Narinjara", url: "https://www.narinjara.com/" },
+  { name: "Than Lwin Times", url: "https://thanlwintimes.com/" },
+  { name: "Shan News (Burmese)", url: "https://burmese.shannews.org/" },
+  { name: "MOI (Other News)", url: "http://moi.gov.mm/other-news" },
+  { name: "Eleven Media", url: "https://news-eleven.com/" },
+  { name: "Than Lwin Khet", url: "http://thanlwinkhet.net/" },
 ];
