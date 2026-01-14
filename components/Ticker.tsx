@@ -43,7 +43,7 @@ export default function Ticker() {
   return (
     <div className="w-full border-b border-neutral-200 bg-white">
       <div className="mx-auto max-w-6xl px-4 py-2">
-        <div className="marquee text-sm md:text-base" style={{ ["--marquee-duration" as any]: "95s" }} aria-label="Ticker">
+        <div className="marquee text-sm md:text-base" style={{ ["--marquee-duration" as any]: "160s" }} aria-label="Ticker">
           <div className="marquee-track">
             {doubled.map((it, idx) => {
               const timeIso = it.publishedAt || it.fetchedAt;
