@@ -182,3 +182,34 @@ Stored per headline:
 ### Rewrite non-empty guarantee
 `rewriteHeadline()` guarantees a non-empty `neutralTitle`. If any rewrite path returns empty/null, the system falls back to a rules-based neutralization and adds a `rewrite_empty_fallback` flag. In ingestion, the saved `neutralTitle` is always a trimmed non-empty string (or ultimately the cleaned original).
 
+
+
+---
+
+### Rewrite plumbing verification (Sprint 3 / Activity 1)
+
+1) Run ingestion once
+```bash
+npm run ingest
+```
+
+2) Verify recent items have non-empty neutralTitle and see change/fallback counts
+```bash
+npm run verify:rewrites
+# or a bigger sample
+npm run verify:rewrites 50
+```
+
+3) Verify API returns displayTitle/usedOriginalFallback
+```bash
+curl "http://localhost:3000/api/headlines?limit=5&sort=balanced&broaden=0"
+```
+
+4) Verify via one-off admin endpoint (requires ADMIN_REFRESH_TOKEN)
+```bash
+curl "http://localhost:3000/api/admin/rewrite-sample?limit=25" \
+  -H "Authorization: Bearer $ADMIN_REFRESH_TOKEN"
+```
+
+5) UI check
+Reload the homepage: items should render displayTitle (neutral by default). If usedOriginalFallback is true, the UI shows a small “(original)” label.
