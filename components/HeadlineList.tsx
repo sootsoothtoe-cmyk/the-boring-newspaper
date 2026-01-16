@@ -48,6 +48,7 @@ export default function HeadlineList() {
   const [category, setCategory] = useState<string>("ALL");
   const [source, setSource] = useState<string>("ALL");
   const [sort, setSort] = useState<"balanced" | "newest">("balanced");
+  const [shuffleSeed, setShuffleSeed] = useState(() => Date.now());
   const [broaden, setBroaden] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -62,6 +63,12 @@ export default function HeadlineList() {
       sort,
       broaden: broaden ? "1" : "0",
     });
+
+    if (sort === "balanced") {
+      qs.set("shuffle", "1");
+      qs.set("seed", shuffleSeed);
+      qs.set("window", "80");
+    }
     const res = await fetch(`/api/headlines?${qs.toString()}`, { cache: "no-store" });
     const data = await res.json();
     setItems(data.items || []);
@@ -81,24 +88,29 @@ export default function HeadlineList() {
   useEffect(() => {
     load().catch(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, source, sort, broaden]);
+  }, [category, source, sort, broaden, shuffleSeed]);
 
   function refreshAll() {
-    load().catch(() => setLoading(false));
-    window.dispatchEvent(new Event("boringnews:refresh"));
-  }
+  setShuffleSeed(Date.now()); // triggers useEffect refetch with a new seed
+  window.dispatchEvent(new Event("boringnews:refresh"));
+}
 
   return (
     <div className="container-max py-6">
       <header className="mb-6">
         <div className="flex items-baseline justify-between gap-4">
           <h1 className="text-2xl font-semibold tracking-tight">The Boring Newspaper</h1>
-          <a className="text-sm text-neutral-600 no-underline hover:underline" href="/health" target="_blank" rel="noreferrer">
-            /health
-          </a>
+          <div className="flex items-center gap-4">
+            <a className="text-sm text-neutral-600 no-underline hover:underline" href="/about">
+              About
+            </a>
+            <a className="text-sm text-neutral-600 no-underline hover:underline" href="/health" target="_blank" rel="noreferrer">
+              /health
+            </a>
+          </div>
         </div>
         <p className="mt-2 text-sm text-neutral-600">
-          Burmese-first headline aggregator. Neutral rewrites by default. No feeds, no rage-bait.
+          A calmer way to keep up with Myanmar news headlines.
         </p>
       </header>
 
