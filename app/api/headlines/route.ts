@@ -67,7 +67,7 @@ let ranked = rankHeadlines(base, sort, broaden).slice(0, limit);
 console.log("before shuffle", ranked.slice(0, 6).map(h => h.id));
 // shuffle applies only in balanced mode
 if (sort === "balanced" && shuffle) {
-  ranked = shuffleWindow(ranked, windowSize, safeSeed);
+  ranked = shuffleWindow(ranked, windowSize, String(safeSeed));
 }
 console.log("after shuffle", ranked.slice(0, 6).map(h => h.id));
   // Also reported by... (cluster mates)
