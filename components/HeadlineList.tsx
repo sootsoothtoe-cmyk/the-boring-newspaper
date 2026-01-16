@@ -48,7 +48,7 @@ export default function HeadlineList() {
   const [category, setCategory] = useState<string>("ALL");
   const [source, setSource] = useState<string>("ALL");
   const [sort, setSort] = useState<"balanced" | "newest">("balanced");
-  const [shuffleSeed, setShuffleSeed] = useState(() => Date.now());
+  const [shuffleSeed, setShuffleSeed] = useState<string>(() => String(Date.now()));
   const [broaden, setBroaden] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -91,7 +91,7 @@ export default function HeadlineList() {
   }, [category, source, sort, broaden, shuffleSeed]);
 
   function refreshAll() {
-  setShuffleSeed(Date.now()); // triggers useEffect refetch with a new seed
+  setShuffleSeed(String(Date.now())); // triggers useEffect refetch with a new seed
   window.dispatchEvent(new Event("boringnews:refresh"));
 }
 
