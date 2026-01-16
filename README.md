@@ -213,3 +213,27 @@ curl "http://localhost:3000/api/admin/rewrite-sample?limit=25" \
 
 5) UI check
 Reload the homepage: items should render displayTitle (neutral by default). If usedOriginalFallback is true, the UI shows a small “(original)” label.
+
+
+---
+
+## Headline shuffling (Sprint 3 / Activity 3)
+
+TBN uses **stable content + variable presentation** on the homepage list (presentation layer only).
+
+Base order (deterministic, recency-respecting):
+- `publishedAt` DESC (NULLS last), then `fetchedAt` DESC
+
+Shuffle layer (bounded window):
+- Applies only when `sort=balanced` (the default homepage mode)
+- Shuffles only the top **window=80** items
+- Uses a **seeded shuffle** (`seed=<string>`) so the order is stable for that page load/seed
+- Triggered only on:
+  - page load (seed generated once in client state)
+  - clicking the in-app Refresh button (new seed generated)
+
+When `sort=newest`, shuffling is disabled to keep strict recency.
+
+API params (homepage usage):
+- `GET /api/headlines?...&shuffle=1&seed=<seed>&window=80`
+
