@@ -34,7 +34,7 @@ export function seededShuffle<T>(items: T[], seed: string): T[] {
   return out;
 }
 
-export function shuffleWindow<T>(items: T[], seed: string, windowSize: number): T[] {
+export function shuffleWindow<T>(items: T[], windowSize: number, seed: string): T[] {
   const n = Math.max(0, Math.min(items.length, windowSize));
   if (n <= 1) return items;
   const head = seededShuffle(items.slice(0, n), seed);
