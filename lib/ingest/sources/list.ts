@@ -21,4 +21,10 @@ export const SOURCES: SourceConfig[] = [
   { name: "MOI (Other News)", url: "http://moi.gov.mm/other-news" },
   { name: "Eleven Media", url: "https://news-eleven.com/" },
   { name: "Than Lwin Khet", url: "http://thanlwinkhet.net/" },
+  { name: "Myanmar Fact-Checking Network", url: "https://myanmarfactcheckingnetwork.org/" },
+  { name: "Myanmar Press Photo Agency", url: "https://mpanews.info/" },
+  { name: "Dawei Watch", url: "https://www.daweiwatch.com/" },
+  { name: "Ludu NwayOo", url: "https://www.ludunwayoo.com/" },
+  { name: "NUG Newsroom", url: "https://nugmyanmar.org/category/news/" },
+
 ];
